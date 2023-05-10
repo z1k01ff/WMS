@@ -1,16 +1,57 @@
-# This is a sample Python script.
+import time
+import os
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+s = Service(executable_path='C:\chromedriver1\chromedriver.exe')
+driver = webdriver.Chrome(service=s)
 
+try:
+    driver.maximize_window()
+    driver.get("http://wms_ub1rds.berta.corp:8080/safena/start?lang=russian&theme=classic&app=wmsprod")
+    # time.sleep(5)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+    # Логін
+    user_input = driver.find_element(By.ID, 'user')
+    user_input.clear()
+    user_input.send_keys("TEST3")
+    # time.sleep(2)
 
+    # Пароль
+    pwd_input = driver.find_element(By.ID, 'pwd')
+    pwd_input.clear()
+    pwd_input.send_keys("TEST3")
+    pwd_input.send_keys(Keys.ENTER)
+    time.sleep(2)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    # Повідомленя про те що користувач вже залогінений
+    warning_mess = driver.find_element(By.ID, 'SINGLE_LOGIN_WARNING-yes-btnInnerEl')
+    if warning_mess:
+        ActionChains(driver).click(warning_mess).perform()
+        time.sleep(2)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # Кнопка старт
+    start_btm = driver.find_element(By.ID, 'button-1084-btnInnerEl')
+    ActionChains(driver).click(start_btm).perform()
+    time.sleep(2)
+
+    # Кнопка Транспортние поручения
+    menu_tr_btm = driver.find_element(By.ID, 'MENU-F_ZLECENIA_TRANSPORT_MENU-textEl')
+    ActionChains(driver).click(menu_tr_btm).perform()
+    time.sleep(2)
+
+    # Кнопка Текущие транспортние поручения
+    tr_btm = driver.find_element(By.ID, 'MENU-TR_TRANSPORTS_FAST_F-textEl')
+    ActionChains(driver).click(tr_btm).perform()
+    time.sleep(2)
+
+    time.sleep(50)
+
+except Exception as ex:
+    print(ex)
+finally:
+    driver.close()
+    driver.quit()
