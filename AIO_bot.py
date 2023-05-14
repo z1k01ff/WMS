@@ -13,29 +13,33 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands="start")
 async def start(message: types.Message):
-    start_buttons = ["Time", "Date", "Поповнення", "Перепаковка"]
+    start_buttons = ["Поповнення і Перепаковки", "Відправка"]
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*start_buttons)
 
-    await message.answer("Дізнайтеся поточний час ", reply_markup=keyboard)
+    await message.answer("Виберіть бажану функцію", reply_markup=keyboard)
 
 
-@dp.message_handler(Text(equals="Time"))
-async def get_time(message: types.Message):
-    update_time()
-    with open("time.json") as file:
-        current_time = json.load(file)
+@dp.message_handler(Text(equals="Поповнення і Перепаковки"))
+async def popovn_info(message: types.Message):
+    # get_popovn()
+    with open("test.json") as file:
+        popovn = json.load(file)
+        result = ""
+        for item in popovn.items():
+            new_item = str(item)[2:-1].replace("',", " ->")
+            result += f"{new_item}\n"
 
-    await message.answer(current_time)
+    await message.answer(result)
 
 
-@dp.message_handler(Text(equals="Date"))
-async def get_date(message: types.Message):
-    update_date()
-    with open("date.json") as file:
-        current_date = json.load(file)
+@dp.message_handler(Text(equals="Відправка"))
+async def vidpravka_info(message: types.Message):
+    # get_vidpravka()
+    with open("vidpravka.json") as file:
+        vidpravka = json.load(file)
 
-    await message.answer(current_date)
+    await message.answer(vidpravka)
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()

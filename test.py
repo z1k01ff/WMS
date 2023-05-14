@@ -1,4 +1,4 @@
-
+import json
 tr = {
     "0": "Молодший бухгалтер",
     "1": "Головний бухгалтер",
@@ -30,4 +30,5 @@ for key, value in tr.items():
     result.update({value: result[value] + 1})
 print(result)
 
-
+with open("test.json", "w") as file:
+    json.dump(result, file, indent=4, ensure_ascii=False)
