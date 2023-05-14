@@ -1,2 +1,4 @@
-selenium
-aiogram
+selenium~=4.9.1
+aiogram~=2.25.1
+
+pymongo~=4.3.3
