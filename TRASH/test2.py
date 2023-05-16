@@ -10,6 +10,3 @@ for item in popovn.items():
     # print(new_item)
     result += f"{new_item}\n"
 print(result)
-
-text = "Welcome \n to Mate academy"
-print(text)

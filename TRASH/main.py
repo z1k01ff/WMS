@@ -31,7 +31,7 @@ def update_time() -> object:
             for n, name in enumerate(time1):
                 print(n, name.text)
                 result.update({n: name.text})
-            print(result)
+            print(result[0])
 
             # for n in time1:
             #     print(n.text)
@@ -46,7 +46,7 @@ def update_time() -> object:
 
             driver.close()
             driver.quit()
-            time.sleep(10)
+            time.sleep(100)
 
     return
 
