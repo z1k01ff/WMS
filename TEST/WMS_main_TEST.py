@@ -139,8 +139,17 @@ def wms_popovn(driver) -> object:
 
 # def driver():
 #     driver = webdriver.Chrome(service=s)
-#     return driver
+#     try:
+#         driver.maximize_window()
+#         driver.get(url)
 #
+#     except Exception as ex:
+#         print(ex)
+#
+#     finally:
+#         print("Driver initialised")
+#         return driver
+
 # def wms_exit(driver=driver()):
 #     driver.close()
 #     driver.quit()
@@ -153,8 +162,11 @@ def wms_exit(driver):
     driver.quit()
 
 
-
 if __name__ == "__main__":
-    wms_tp(wms_login())
-    wms_popovn(wms_login())
+    # wms_login()
+    # wms_tp_fast(wms_login())
+    # wms_popovn(wms_login())
+    # wms_vidpravka(wms_login())
+    # wms_exit(wms_login())
 
+# можливо потрібно буде об'єднати в одну ф-цію через driver!!!!!
