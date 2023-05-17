@@ -19,16 +19,11 @@ tr = {
     "22": "Ці вакансії за містами"
 }
 
-result2 = {}
-for item in tr.values():
-    result2.update({item: 0})
-print(result2)
 
-result = result2
+list = ["qq", "ee", "rr", "qq", "ee", "ee", "ee", "ee"]
+result = {}
 
-for key, value in tr.items():
-    result.update({value: result[value] + 1})
+for item in list:
+    if item not in result:
+        result.update({item: list.count(item)})
 print(result)
-
-with open("test.json", "w") as file:
-    json.dump(result, file, indent=4, ensure_ascii=False)
