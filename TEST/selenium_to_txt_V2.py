@@ -5,6 +5,7 @@ import time
 def selenium_to_text(selenium_file, name):
     json_result = {}
     list_txt_result = []
+    zagalna_kilkist = 0
     for item in selenium_file:
         item = item.text
         list_txt_result.append(item)
@@ -13,6 +14,10 @@ def selenium_to_text(selenium_file, name):
         if item_text not in json_result:
             json_result.update({item_text: list_txt_result.count(item_text)})
     # print(json_result)
+    for n in json_result.values():
+        zagalna_kilkist += n
+    print(f"Загальна кількість {name} ", zagalna_kilkist)
+
 
     text_result = ""
 

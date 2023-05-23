@@ -126,6 +126,33 @@ def wms_vidpravka(driver) -> object:
         print("TP vidpravka Succesfull")
 
 
+def wms_vidpravka_marshrut(driver) -> object:
+    try:
+
+        # Pole TIP POROCHENIYA
+        pole_type_tp = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_TRANSPORT_TYPE-inputEl')
+        ActionChains(driver).click(pole_type_tp).perform()
+        pole_type_tp.clear()
+        pole_type_tp.send_keys("Відправка")
+
+        # Knopka Search
+        search_btm = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-_0_GRID-PAGING_SEARCH-btnIconEl')
+        ActionChains(driver).click(search_btm).perform()
+        time.sleep(2)
+
+        # Poshuk vsih elementiv po uchastku
+        tp_pole_marshrut = driver.find_elements(By.XPATH,
+                                                "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1163']")
+        test = selenium_to_text(tp_pole_marshrut, "kilkist_vidpravok_marshrut")
+        print(test)
+
+    except Exception as ex:
+        print(ex)
+
+    finally:
+        print("TP vidpravka marshrut Succesfull")
+
+
 def wms_popovn(driver) -> object:
     global kilkist_popovn
     try:
@@ -167,8 +194,9 @@ if __name__ == "__main__":
         test = driver()
         wms_login(test)
         wms_tp_fast(test)
-        wms_popovn(test)
-        wms_vidpravka(test)
+        wms_vidpravka_marshrut(test)
+        # wms_popovn(test)
+        # wms_vidpravka(test)
         wms_exit(test)
         cycle += 1
         print("Kolo #", cycle)
