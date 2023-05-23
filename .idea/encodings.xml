@@ -4,5 +4,9 @@
     <file url="file://$PROJECT_DIR$/TEST/kilkist_popovnen.json" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/TEST/kilkist_vidpravok.json" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/TEST/text_test.json" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/json data/kilkist_popovnen.json" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/json data/kilkist_vidpravok.json" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/json data/kilkist_vidpravok_marshrut.json" charset="windows-1251" />
+    <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>
