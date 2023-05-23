@@ -231,6 +231,7 @@ def full_info(driver: object) -> object:
     pole_product_nr = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_PRODUCT_NR-inputEl') # POLE product
     search_btm = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-_0_GRID-PAGING_SEARCH-btnIconEl') # KNOPKA SEARCH
     kolonka_uchastok_zbora = "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']"
+    pole_na_mesto = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F - 0 - F_TXT_SP_TO - inputEl')
 
     ################ BERTA ##################
 
@@ -271,6 +272,7 @@ def full_info(driver: object) -> object:
     time.sleep(5)
 
     vidpravka_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+    # Dodaty poshuk po marsruty!!!!
 
     selenium_to_text(vidpravka_berta, "vidpravka_berta")
 
@@ -288,9 +290,9 @@ def full_info(driver: object) -> object:
     ActionChains(driver).click(search_btm).perform()
     time.sleep(5)
 
-    popovn_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+    popovn_blyzenko = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
 
-    selenium_to_text(popovn_berta, "popovn_berta")
+    selenium_to_text(popovn_blyzenko, "popovn_blyzenko")
 
     # PEREPAKOVKA
     ActionChains(driver).click(pole_type_tp).perform()
@@ -300,9 +302,9 @@ def full_info(driver: object) -> object:
     ActionChains(driver).click(search_btm).perform()
     time.sleep(5)
 
-    perepakovka_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+    perepakovka_blyzenko = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
 
-    selenium_to_text(perepakovka_berta, "perepakovka_berta")
+    selenium_to_text(perepakovka_blyzenko, "perepakovka_blyzenko")
 
     # VIDPRAVKA
     ActionChains(driver).click(pole_type_tp).perform()
@@ -312,9 +314,39 @@ def full_info(driver: object) -> object:
     ActionChains(driver).click(search_btm).perform()
     time.sleep(5)
 
-    vidpravka_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+    vidpravka_blyzenko = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
 
-    selenium_to_text(vidpravka_berta, "vidpravka_berta")
+    selenium_to_text(vidpravka_blyzenko, "vidpravka_blyzenko")
+
+    # peremischenya na IN-CONV*
+    ActionChains(driver).click(pole_type_tp).perform()
+    pole_type_tp.clear()
+    pole_type_tp.send_keys("Переміщення")
+
+    ActionChains(driver).click(pole_na_mesto).perform()
+    pole_product_nr.clear()
+    pole_product_nr.send_keys("IN*")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    peremischenya_na_in_blyzenko = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(peremischenya_na_in_blyzenko, "peremischenya_na_in_blyzenko")
+
+    # peremischenya na ST*
+
+    ActionChains(driver).click(pole_na_mesto).perform()
+    pole_product_nr.clear()
+    pole_product_nr.send_keys("ST*")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    peremischenya_na_st_blyzenko = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(peremischenya_na_st_blyzenko, "peremischenya_na_st_blyzenko")
+
 
 
 
