@@ -75,7 +75,6 @@ def wms_login(driver):
 
 
 
-
 def wms_tp_fast(driver):
     try:
         # Кнопка старт
@@ -225,6 +224,102 @@ def wms_popovn(driver) -> object:
 
     finally:
         print("TP popovnenya Succesfull")
+
+def full_info(driver: object) -> object:
+    #BTM's in TP FAST
+    pole_type_tp = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_TRANSPORT_TYPE-inputEl') # POLE TIP PORUCHENIYA
+    pole_product_nr = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_PRODUCT_NR-inputEl') # POLE product
+    search_btm = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-_0_GRID-PAGING_SEARCH-btnIconEl') # KNOPKA SEARCH
+    kolonka_uchastok_zbora = "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']"
+
+    ################ BERTA ##################
+
+    #POPOVNENYA
+    ActionChains(driver).click(pole_type_tp).perform()
+    pole_type_tp.clear()
+    pole_type_tp.send_keys("Поповнення збору")
+
+    ActionChains(driver).click(pole_product_nr).perform()
+    pole_product_nr.clear()
+    pole_product_nr.send_keys("0*")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    popovn_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(popovn_berta, "popovn_berta")
+
+    #PEREPAKOVKA
+    ActionChains(driver).click(pole_type_tp).perform()
+    pole_type_tp.clear()
+    pole_type_tp.send_keys("Перепакування")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    perepakovka_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(perepakovka_berta, "perepakovka_berta")
+
+    #VIDPRAVKA
+    ActionChains(driver).click(pole_type_tp).perform()
+    pole_type_tp.clear()
+    pole_type_tp.send_keys("Відправка")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    vidpravka_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(vidpravka_berta, "vidpravka_berta")
+
+    ################ BLYZENKO ##################
+
+    # POPOVNENYA
+    ActionChains(driver).click(pole_type_tp).perform()
+    pole_type_tp.clear()
+    pole_type_tp.send_keys("Поповнення збору")
+
+    ActionChains(driver).click(pole_product_nr).perform()
+    pole_product_nr.clear()
+    pole_product_nr.send_keys("МС*")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    popovn_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(popovn_berta, "popovn_berta")
+
+    # PEREPAKOVKA
+    ActionChains(driver).click(pole_type_tp).perform()
+    pole_type_tp.clear()
+    pole_type_tp.send_keys("Перепакування")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    perepakovka_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(perepakovka_berta, "perepakovka_berta")
+
+    # VIDPRAVKA
+    ActionChains(driver).click(pole_type_tp).perform()
+    pole_type_tp.clear()
+    pole_type_tp.send_keys("Відправка")
+
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+
+    vidpravka_berta = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
+
+    selenium_to_text(vidpravka_berta, "vidpravka_berta")
+
+
+
+
+
 
 
 

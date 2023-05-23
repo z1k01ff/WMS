@@ -7,37 +7,23 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import json
 from selenium.webdriver.chrome.options import Options
-from selenium_to_txt_V2 import selenium_to_text
+from selenium_to_text import selenium_to_json
+
 
 url = "http://wms_ub1rds.berta.corp:8080/safena/start?lang=russian&theme=classic&app=wmsprod"
 chrome_path = '/Users/admin/Downloads/chromedriver'
 # chrome_path = 'C:\chromedriver1\chromedriver.exe'
 s = Service(executable_path=chrome_path)
 
+
 # Прихований режим
-options = Options()
-options.add_argument("--headless=new")
+# options = Options()
+# options.add_argument("--headless=new")
 
 result = {}
+def wms_login():
 
-def driver():
-    driver = webdriver.Chrome(service=s, options=options)
-    try:
-        driver.maximize_window()
-        driver.get(url)
-
-    except Exception as ex:
-        print(ex)
-
-    finally:
-        print("Driver initialised")
-        return driver
-
-# test = driver()
-
-
-def wms_login(driver):
-    # driver = webdriver.Chrome(service=s)
+    driver = webdriver.Chrome(service=s)
 
     try:
         driver.maximize_window()
@@ -72,10 +58,6 @@ def wms_login(driver):
         print("Sucesfull login")
         return driver
 
-
-
-
-
 def wms_tp_fast(driver):
     try:
         # Кнопка старт
@@ -100,7 +82,9 @@ def wms_tp_fast(driver):
         print("TP successful opening")
 
 
+
 def wms_vidpravka(driver) -> object:
+
     try:
 
         # Pole TIP POROCHENIYA
@@ -115,9 +99,8 @@ def wms_vidpravka(driver) -> object:
         time.sleep(2)
 
         # Poshuk vsih elementiv po uchastku
-        tp_pole_uchastok = driver.find_elements(By.XPATH,
-                                                "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']")
-        selenium_to_text(tp_pole_uchastok, "kilkist_vidpravok")
+        tp_pole_uchastok = driver.find_elements(By.XPATH, "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']")
+        selenium_to_json(tp_pole_uchastok, "kilkist_vidpravok")
 
     except Exception as ex:
         print(ex)
@@ -126,36 +109,10 @@ def wms_vidpravka(driver) -> object:
         print("TP vidpravka Succesfull")
 
 
-def wms_vidpravka_marshrut(driver) -> object:
-    try:
-
-        # Pole TIP POROCHENIYA
-        pole_type_tp = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_TRANSPORT_TYPE-inputEl')
-        ActionChains(driver).click(pole_type_tp).perform()
-        pole_type_tp.clear()
-        pole_type_tp.send_keys("Відправка")
-
-        # Knopka Search
-        search_btm = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-_0_GRID-PAGING_SEARCH-btnIconEl')
-        ActionChains(driver).click(search_btm).perform()
-        time.sleep(2)
-
-        # Poshuk vsih elementiv po uchastku
-        tp_pole_marshrut = driver.find_elements(By.XPATH,
-                                                "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1163']")
-        test = selenium_to_text(tp_pole_marshrut, "kilkist_vidpravok_marshrut")
-        print(test)
-
-    except Exception as ex:
-        print(ex)
-
-    finally:
-        print("TP vidpravka marshrut Succesfull")
-
-
 def wms_popovn(driver) -> object:
     global kilkist_popovn
     try:
+
 
         # Pole TIP POROCHENIYA TR_TRANSPORTS_FAST_F-0-F_F_TRANSPORT_TYPE-inputEl
         pole_type_tp = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_TRANSPORT_TYPE-inputEl')
@@ -170,8 +127,7 @@ def wms_popovn(driver) -> object:
 
         tp_uchastok = driver.find_elements(By.XPATH,
                                            "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']")
-
-        selenium_to_text(tp_uchastok, "kilkist_popovnen")
+        selenium_to_json(tp_uchastok, "kilkist_popovnen")
 
     except Exception as ex:
         print(ex)
@@ -179,7 +135,26 @@ def wms_popovn(driver) -> object:
     finally:
         print("TP popovnenya Succesfull")
 
+# PROTESTYVATY !!!!---------------------------------------------------
 
+# def driver():
+#     driver = webdriver.Chrome(service=s)
+#     try:
+#         driver.maximize_window()
+#         driver.get(url)
+#
+#     except Exception as ex:
+#         print(ex)
+#
+#     finally:
+#         print("Driver initialised")
+#         return driver
+
+# def wms_exit(driver=driver()):
+#     driver.close()
+#     driver.quit()
+
+# PROTESTYVATY !!!!-----------------------------------------------------
 
 
 def wms_exit(driver):
@@ -188,18 +163,10 @@ def wms_exit(driver):
 
 
 if __name__ == "__main__":
-    cycle = 0
+    # wms_login()
+    # wms_tp_fast(wms_login())
+    # wms_popovn(wms_login())
+    # wms_vidpravka(wms_login())
+    # wms_exit(wms_login())
 
-    while True:
-        test = driver()
-        wms_login(test)
-        wms_tp_fast(test)
-        wms_vidpravka_marshrut(test)
-        # wms_popovn(test)
-        # wms_vidpravka(test)
-        wms_exit(test)
-        cycle += 1
-        print("Kolo #", cycle)
-        time.sleep(60)
-
-
+# можливо потрібно буде об'єднати в одну ф-цію через driver!!!!!
