@@ -229,9 +229,10 @@ def full_info(driver: object) -> object:
     #BTM's in TP FAST
     pole_type_tp = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_TRANSPORT_TYPE-inputEl') # POLE TIP PORUCHENIYA
     pole_product_nr = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_PRODUCT_NR-inputEl') # POLE product
+    pole_na_mesto = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F - 0 - F_TXT_SP_TO - inputEl')
     search_btm = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-_0_GRID-PAGING_SEARCH-btnIconEl') # KNOPKA SEARCH
     kolonka_uchastok_zbora = "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']"
-    pole_na_mesto = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F - 0 - F_TXT_SP_TO - inputEl')
+
 
     ################ BERTA ##################
 
