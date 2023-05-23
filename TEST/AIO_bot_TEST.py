@@ -24,21 +24,27 @@ async def start(message: types.Message):
 
 @dp.message_handler(Text(equals="Поповнення"))
 async def popovn_info(message: types.Message):
-    kilkist_popovn = json_to_text("kilkist_popovn")
-    await message.answer(kilkist_popovn)
+    # kilkist_popovn = "Дата оновлення\n" + json_to_text("kilkist_popovnen")
+    # await message.answer(kilkist_popovn)
+    with open("../TEST/kilkist_popovnen.json") as file:
+        json_file = json.load(file)
+
+    await message.answer(json_file)
 
 
 @dp.message_handler(Text(equals="Відправка"))
 async def vidpravka_info(message: types.Message):
-    kilkist_vidpravok = json_to_text("kilkist_vidpravok")
+    with open("../TEST/kilkist_vidpravok.json") as file:
+        json_file = json.load(file)
 
-    await message.answer(kilkist_vidpravok)
+    await message.answer(json_file)
+
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     executor.start_polling(dp)
-    wms_tp_fast(wms_login())
-    wms_popovn(wms_login())
-    wms_vidpravka(wms_login())
-    wms_exit(wms_login())
+    # wms_tp_fast(wms_login())
+    # wms_popovn(wms_login())
+    # wms_vidpravka(wms_login())
+    # wms_exit(wms_login())
 

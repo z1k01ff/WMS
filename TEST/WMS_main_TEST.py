@@ -7,7 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import json
 from selenium.webdriver.chrome.options import Options
-from selenium_to_text import selenium_to_json
+from selenium_to_txt_V2 import selenium_to_text
 
 url = "http://wms_ub1rds.berta.corp:8080/safena/start?lang=russian&theme=classic&app=wmsprod"
 chrome_path = '/Users/admin/Downloads/chromedriver'
@@ -15,13 +15,13 @@ chrome_path = '/Users/admin/Downloads/chromedriver'
 s = Service(executable_path=chrome_path)
 
 # Прихований режим
-# options = Options()
-# options.add_argument("--headless=new")
+options = Options()
+options.add_argument("--headless=new")
 
 result = {}
 
 def driver():
-    driver = webdriver.Chrome(service=s)
+    driver = webdriver.Chrome(service=s, options=options)
     try:
         driver.maximize_window()
         driver.get(url)
@@ -117,7 +117,7 @@ def wms_vidpravka(driver) -> object:
         # Poshuk vsih elementiv po uchastku
         tp_pole_uchastok = driver.find_elements(By.XPATH,
                                                 "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']")
-        selenium_to_json(tp_pole_uchastok, "kilkist_vidpravok")
+        selenium_to_text(tp_pole_uchastok, "kilkist_vidpravok")
 
     except Exception as ex:
         print(ex)
@@ -143,9 +143,8 @@ def wms_popovn(driver) -> object:
 
         tp_uchastok = driver.find_elements(By.XPATH,
                                            "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']")
-        time.sleep(5)
 
-        selenium_to_json(tp_uchastok, "kilkist_popovnen")
+        selenium_to_text(tp_uchastok, "kilkist_popovnen")
 
     except Exception as ex:
         print(ex)
@@ -173,6 +172,6 @@ if __name__ == "__main__":
         wms_exit(test)
         cycle += 1
         print("Kolo #", cycle)
-        time.sleep(300)
+        time.sleep(60)
 
 

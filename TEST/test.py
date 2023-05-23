@@ -1,4 +1,5 @@
 import json
+import time
 tr = {
     "0": "Молодший бухгалтер",
     "1": "Головний бухгалтер",
@@ -27,3 +28,5 @@ for item in list:
     if item not in result:
         result.update({item: list.count(item)})
 print(result)
+
+print(time.strftime('%X'))
