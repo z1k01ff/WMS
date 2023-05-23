@@ -1,11 +1,17 @@
+import selenium
 import json
 
 
 def selenium_to_json(selenium_file, name):
     json_result = {}
+    text_result = []
     for item in selenium_file:
-        if item not in json_result:
-            json_result.update({item: selenium_file.count(item)})
+        item = item.text
+        text_result.append(item)
+
+    for item_text in text_result:
+        if item_text not in json_result:
+            json_result.update({item_text: text_result.count(item_text)})
     print(json_result)
 
     with open(f"../TEST/{name}.json", "w") as file:

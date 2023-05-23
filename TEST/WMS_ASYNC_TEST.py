@@ -1,4 +1,5 @@
 import time
+import asyncio
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -14,29 +15,50 @@ chrome_path = '/Users/admin/Downloads/chromedriver'
 # chrome_path = 'C:\chromedriver1\chromedriver.exe'
 s = Service(executable_path=chrome_path)
 
-# Прихований режим
-# options = Options()
-# options.add_argument("--headless=new")
 
-result = {}
+# async def fun1():
+#     await asyncio.sleep(60)
+#     print('fun1 завершена')
+#     return "fun1"
+#
+#
+# async def fun2():
+#     await asyncio.sleep(60)
+#     print('fun2 завершена')
+#     return "fun2"
+#
+
+# async def main():
+#     task1 = asyncio.create_task(fun1())
+#     task2 = asyncio.create_task(fun2())
+#
+#     await task1
+#     await task2
+#
+#
+# asyncio.run(main())
+
 
 def driver():
     driver = webdriver.Chrome(service=s)
     try:
         driver.maximize_window()
         driver.get(url)
+        print("Driver initialised")
+        # await asyncio.sleep(10)
 
     except Exception as ex:
         print(ex)
 
     finally:
-        print("Driver initialised")
+        print("Driver reinicialised")
         return driver
 
-# test = driver()
+
+test = driver()
 
 
-def wms_login(driver):
+async def wms_login(driver=test):
     # driver = webdriver.Chrome(service=s)
 
     try:
@@ -64,19 +86,16 @@ def wms_login(driver):
         except Exception as ex:
             print(ex)
 
-
+        await asyncio.sleep(10)
     except Exception as ex:
         print(ex)
 
     finally:
         print("Sucesfull login")
-        return driver
+        # return driver
 
 
-
-
-
-def wms_tp_fast(driver):
+async def wms_tp_fast(driver=test):
     try:
         # Кнопка старт
         start_btm = driver.find_element(By.ID, 'button-1084-btnInnerEl')
@@ -126,7 +145,7 @@ def wms_vidpravka(driver) -> object:
         print("TP vidpravka Succesfull")
 
 
-def wms_popovn(driver) -> object:
+async def wms_popovn(driver=test) -> object:
     global kilkist_popovn
     try:
 
@@ -143,7 +162,7 @@ def wms_popovn(driver) -> object:
 
         tp_uchastok = driver.find_elements(By.XPATH,
                                            "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']")
-        time.sleep(5)
+        # time.sleep(5)
 
         selenium_to_json(tp_uchastok, "kilkist_popovnen")
 
@@ -154,25 +173,31 @@ def wms_popovn(driver) -> object:
         print("TP popovnenya Succesfull")
 
 
-
-
-def wms_exit(driver):
+def wms_exit(driver=test):
     driver.close()
     driver.quit()
 
+async def main():
+    task1 = asyncio.create_task(wms_login())
+    task2 = asyncio.create_task(wms_tp_fast())
+    task3 = asyncio.create_task(wms_popovn())
+
+    await task1
+    await task2
+    await task3
+async def loop():
+    while True:
+        asyncio.run(main())
+        await asyncio.sleep(20)
+        await loop()
+
+async def main2():
+
+
+
 
 if __name__ == "__main__":
-    cycle = 0
-
-    while True:
-        test = driver()
-        wms_login(test)
-        wms_tp_fast(test)
-        wms_popovn(test)
-        wms_vidpravka(test)
-        wms_exit(test)
-        cycle += 1
-        print("Kolo #", cycle)
-        time.sleep(300)
+    loop()
 
 
+# можливо потрібно буде об'єднати в одну ф-цію через driver!!!!!
