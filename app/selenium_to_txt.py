@@ -32,7 +32,7 @@ def selenium_to_text(selenium_file, name):
     return text_result
 
 def json_open(name):
-    with open(f"../app/json data/{name}.json") as file:
+    with open(f"../app/json data/{name}") as file:
         json_file = json.load(file)
     return json_file
 

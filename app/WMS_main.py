@@ -15,13 +15,13 @@ chrome_path = '/Users/admin/Downloads/chromedriver'
 s = Service(executable_path=chrome_path)
 
 # Прихований режим
-# options = Options()
-# options.add_argument("--headless=new")
+options = Options()
+options.add_argument("--headless=new")
 
 result = {}
 
 def driver():
-    driver = webdriver.Chrome(service=s)
+    driver = webdriver.Chrome(service=s, options=options)
     try:
         driver.maximize_window()
         driver.get(url)
@@ -90,7 +90,7 @@ def wms_tp_fast(driver):
         # Кнопка Текущие транспортние поручения
         tr_btm = driver.find_element(By.ID, 'MENU-TR_TRANSPORTS_FAST_F-textEl')
         ActionChains(driver).click(tr_btm).perform()
-        time.sleep(1)
+        time.sleep(3)
 
     except Exception as ex:
         print(ex)
@@ -225,11 +225,11 @@ def wms_popovn(driver) -> object:
     finally:
         print("TP popovnenya Succesfull")
 
-def full_info(driver: object) -> object:
+def full_info(driver) -> object:
     #BTM's in TP FAST
     pole_type_tp = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_TRANSPORT_TYPE-inputEl') # POLE TIP PORUCHENIYA
     pole_product_nr = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_F_PRODUCT_NR-inputEl') # POLE product
-    pole_na_mesto = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F - 0 - F_TXT_SP_TO - inputEl')
+    pole_na_mesto = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-F_TXT_SP_TO-inputEl')
     search_btm = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-_0_GRID-PAGING_SEARCH-btnIconEl') # KNOPKA SEARCH
     kolonka_uchastok_zbora = "//td[@class='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']"
 
@@ -325,11 +325,11 @@ def full_info(driver: object) -> object:
     pole_type_tp.send_keys("Переміщення")
 
     ActionChains(driver).click(pole_na_mesto).perform()
-    pole_product_nr.clear()
-    pole_product_nr.send_keys("IN*")
+    pole_na_mesto.clear()
+    pole_na_mesto.send_keys("IN*")
 
     ActionChains(driver).click(search_btm).perform()
-    time.sleep(5)
+    time.sleep(8)
 
     peremischenya_na_in_blyzenko = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
 
@@ -338,11 +338,11 @@ def full_info(driver: object) -> object:
     # peremischenya na ST*
 
     ActionChains(driver).click(pole_na_mesto).perform()
-    pole_product_nr.clear()
-    pole_product_nr.send_keys("ST*")
+    pole_na_mesto.clear()
+    pole_na_mesto.send_keys("STO*")
 
     ActionChains(driver).click(search_btm).perform()
-    time.sleep(5)
+    time.sleep(7)
 
     peremischenya_na_st_blyzenko = driver.find_elements(By.XPATH, kolonka_uchastok_zbora)
 
@@ -350,7 +350,9 @@ def full_info(driver: object) -> object:
 
 
 
-
+def test():
+    progress_bar = "//div[@style='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']"
+    test_progress = driver.find_elements(By.XPATH, progress_bar)
 
 
 
@@ -369,9 +371,10 @@ if __name__ == "__main__":
         test = driver()
         wms_login(test)
         wms_tp_fast(test)
-        wms_vidpravka_marshrut(test)
-        wms_popovn(test)
-        wms_vidpravka(test)
+        full_info(test)
+        # wms_vidpravka_marshrut(test)
+        # wms_popovn(test)
+        # wms_vidpravka(test)
         wms_exit(test)
         cycle += 1
         print("Kolo #", cycle)
