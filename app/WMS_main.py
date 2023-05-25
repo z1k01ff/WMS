@@ -10,8 +10,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium_to_txt import selenium_to_text
 
 url = "http://wms_ub1rds.berta.corp:8080/safena/start?lang=russian&theme=classic&app=wmsprod"
-chrome_path = '/Users/admin/Downloads/chromedriver'
-# chrome_path = 'C:\chromedriver1\chromedriver.exe'
+# chrome_path = '/Users/admin/Downloads/chromedriver'
+chrome_path = 'C:\chromedriver1\chromedriver.exe'
 s = Service(executable_path=chrome_path)
 
 # Прихований режим

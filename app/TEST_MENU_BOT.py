@@ -2,6 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton  # pip install aio
 from aiogram import Dispatcher, Bot, executor, types
 import json
 from selenium_to_txt import json_open
+import asyncio
 
 API_TOKEN = "5662776987:AAFNQiftIFBgayordIizZxMeRDcZWCmq7Ao"
 
@@ -74,4 +75,5 @@ async def messages(message: types.Message):
 
 
 if __name__ == '__main__':
-    executor.start_polling(dispatcher, skip_updates=True)
+    loop = asyncio.get_event_loop()
+    executor.start_polling(dispatcher)
