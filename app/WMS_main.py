@@ -15,13 +15,13 @@ chrome_path = 'C:\chromedriver1\chromedriver.exe'
 s = Service(executable_path=chrome_path)
 
 # Прихований режим
-options = Options()
-options.add_argument("--headless=new")
+# options = Options()
+# options.add_argument("--headless=new")
 
 result = {}
 
 def driver():
-    driver = webdriver.Chrome(service=s, options=options)
+    driver = webdriver.Chrome(service=s)
     try:
         driver.maximize_window()
         driver.get(url)
@@ -350,9 +350,14 @@ def full_info(driver) -> object:
 
 
 
-def test():
-    progress_bar = "//div[@style='x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143']"
-    test_progress = driver.find_elements(By.XPATH, progress_bar)
+def test1(driver):
+    # Knopka Search
+    search_btm = driver.find_element(By.ID, 'TR_TRANSPORTS_FAST_F-0-_0_GRID-PAGING_SEARCH-btnIconEl')
+    ActionChains(driver).click(search_btm).perform()
+    time.sleep(5)
+    progress_bar = "td.x-grid-cell x-grid-td x-grid-cell-qgridcolumn-1143"
+    test_progress = driver.find_elements(By.CSS_SELECTOR, progress_bar)
+    print(len(test_progress))
 
 
 
@@ -371,7 +376,8 @@ if __name__ == "__main__":
         test = driver()
         wms_login(test)
         wms_tp_fast(test)
-        full_info(test)
+        test1(test)
+        # full_info(test)
         # wms_vidpravka_marshrut(test)
         # wms_popovn(test)
         # wms_vidpravka(test)

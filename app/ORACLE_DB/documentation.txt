@@ -1,0 +1,31 @@
+Текущі транспортні тип поручения :
+
+поставка
+select * from tr_transports_fast where transport_type_nr = 'DL'
+
+Поповнення
+select * from tr_transports_fast where transport_type_nr = 'RP'
+
+Відправка
+select * from tr_transports_fast where transport_type_nr = 'SH'
+
+Знайшов справжні текущі транспортні !!!!
+select * from TRV_SPREAD_TRANS_ORDERS_FAST t
+
+select * from TRV_SPREAD_TRANS_ORDERS_FAST t
+where pzone_nr like 'Лін'
+
+Содержимое склада !!!!
+select * from QWHV_SPREAD_WHS_CONTENTS_UB t
+
+тоже якесь содержимое
+select * from QWHV_SPREAD_WHS_CONTENTS t
+
+
+тоже якесь содержимое міні
+select * from QWHV_SPREAD_LU_CONTENTS t
+
+
+
+
+
