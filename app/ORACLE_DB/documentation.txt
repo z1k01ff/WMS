@@ -25,6 +25,9 @@ select * from QWHV_SPREAD_WHS_CONTENTS t
 тоже якесь содержимое міні
 select * from QWHV_SPREAD_LU_CONTENTS t
 
+Відправки
+select * from SHV_SPREAD_SHIPMENTS t
+
 
 
 
