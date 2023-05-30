@@ -29,6 +29,8 @@ select * from QWHV_SPREAD_LU_CONTENTS t
 select * from SHV_SPREAD_SHIPMENTS t
 
 
+Погрузки
+select * from LDV_SPREAD_LOADINGS t
 
 
 

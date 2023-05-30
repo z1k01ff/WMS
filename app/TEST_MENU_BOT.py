@@ -3,6 +3,7 @@ from aiogram import Dispatcher, Bot, executor, types
 import json
 from selenium_to_txt import json_open
 import asyncio
+from DB import df
 
 API_TOKEN = "5662776987:AAFNQiftIFBgayordIizZxMeRDcZWCmq7Ao"
 
@@ -13,7 +14,7 @@ dispatcher = Dispatcher(bot)
 # Создание клавиатуры
 btn_berta = KeyboardButton("♈ Берта")
 btn_blyzenko = KeyboardButton('♿ Близенько')
-btn_other = KeyboardButton("🔷 Інше")
+btn_other = KeyboardButton("🔷 TEST")
 
 
 
@@ -44,7 +45,7 @@ blyzenko_menu = ReplyKeyboardMarkup(resize_keyboard=True).add(btn_blyzenko_popov
 @dispatcher.message_handler(commands=['start'])
 async def start(message: types.Message):
     await bot.send_message(message.from_user.id, f"👋 Привіт, {message.from_user.first_name}!", reply_markup=main_menu)
-
+chat_id=420995060
 
 @dispatcher.message_handler()
 async def messages(message: types.Message):
@@ -70,6 +71,10 @@ async def messages(message: types.Message):
         await message.answer(json_open("popovn_blyzenko.json"))
     elif message.text == 'ℹ️ Відправка':
         await message.answer(json_open("vidpravka_blyzenko.json"))
+    elif message.text == '🔷 TEST':
+        await bot.send_photo(chat_id, types.InputFile('../app/dataframe.png'))
+
+
     else:
         await bot.send_message(message.from_user.id, f'😐 Ботик вас не зрозумів... :(')
 
