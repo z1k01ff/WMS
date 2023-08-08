@@ -1,2 +1,2 @@
 # WMS
-WMS telegram bot with parser
+WMS telegram bot
